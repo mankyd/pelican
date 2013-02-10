@@ -123,6 +123,14 @@ Setting name (default value)                                            What doe
                                                                         This only applies if your content does not otherwise
                                                                         specify a summary. Setting to ``None`` will cause the summary
                                                                         to be a copy of the original content.
+`SUMMARY_END_MARKER` (``<!-- PELICAN_END_SUMMARY -->``)                 When creating a short summary of an article, this can be used
+                                                                        to delineate the end of the summary. This overrides the 
+                                                                        ``SUMMARY_MAX_LENGTH`` setting. Put this value into your 
+                                                                        content's body to indicate where a summary should stop. The 
+                                                                        marker itself will be removed from the content body.
+`SUMMARY_BEGIN_MARKER` (``<!-- PELICAN_BEGIN_SUMMARY -->``)             Much like ``SUMMARY_END_MARKER``, this delineates where a
+                                                                        summary should begin in content body. The marker itself
+                                                                        will be removed from the content body.
 `EXTRA_TEMPLATES_PATHS` (``[]``)                                        A list of paths you want Jinja2 to search for templates.
                                                                         Can be used to separate templates from the theme.
                                                                         Example: projects, resume, profile ...
