@@ -2,6 +2,18 @@ import types
 
 from pelican import signals
 
+def initialized(pelican):
+    from pelican.settings import _DEFAULT_CONFIG
+    _DEFAULT_CONFIG.setdefault('SUMMARY_BEGIN_MARKER',
+                               '<!-- PELICAN_BEGIN_SUMMARY -->')
+    _DEFAULT_CONFIG.setdefault('SUMMARY_END_MARKER',
+                               '<!-- PELICAN_END_SUMMARY -->')
+    if pelican:
+        pelican.settings.setdefault('SUMMARY_BEGIN_MARKER',
+                                    '<!-- PELICAN_BEGIN_SUMMARY -->')
+        pelican.settings.setdefault('SUMMARY_END_MARKER',
+                                    '<!-- PELICAN_END_SUMMARY -->')
+
 def content_object_init(PageClass, instance):
     # if summary is already specified, use it
     if 'summary' in instance.metadata:
@@ -46,4 +58,5 @@ def content_object_init(PageClass, instance):
         instance._summary = content[begin_summary:end_summary]
 
 def register():
+    signals.initialized.connect(initialized)
     signals.content_object_init.connect(content_object_init)

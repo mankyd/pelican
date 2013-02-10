@@ -43,6 +43,7 @@ class TestSummary(unittest.TestCase):
         from pelican.plugins import summary
 
         summary.register()
+        summary.initialized(None)
         self.page_kwargs = {
             'content': TEST_CONTENT,
             'context': {
