@@ -197,9 +197,26 @@ directory in which the file resides. For example, a file located at
 ``python/foobar/myfoobar.rst`` will have a category of ``foobar``. If you would
 like to organize your files in other ways where the name of the subfolder would
 not be a good category name, you can set the setting ``USE_FOLDER_AS_CATEGORY``
-to ``False``. If there is no summary metadata for a given post, the
-``SUMMARY_MAX_LENGTH`` setting can be used to specify how many words from the
-beginning of an article are used as the summary.
+to ``False``.
+
+If there is no summary metadata for a given post, the ``SUMMARY_MAX_LENGTH`` 
+setting can be used to specify how many words from the beginning of an article 
+are used as the summary. Summaries can also be specified inline with the body
+of the post by using ``SUMMARY_END_MARKER`` to specify where the end of the
+summary should occur. That is to say, if you put the marker in the body of
+your article, the summary will start at the beginning of the body and 
+go until the end marker is seen:
+
+    Title: My super title
+    Date: 2010-12-03 10:20
+    Tags: thats, awesome
+    Category: yeah
+    Slug: my-super-post
+    Author: Alexis Metaireau
+    
+    This is the content of my super blog post.
+    <!-- PELICAN_END_SUMMARY -->
+    and this content occurs after the summary.
 
 You can also extract any metadata from the filename through a regular
 expression to be set in the ``FILENAME_METADATA`` setting.
