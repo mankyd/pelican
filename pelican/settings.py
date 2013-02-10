@@ -79,6 +79,8 @@ _DEFAULT_CONFIG = {'PATH': '.',
                    'ARTICLE_PERMALINK_STRUCTURE': '',
                    'TYPOGRIFY': False,
                    'SUMMARY_MAX_LENGTH': 50,
+                   'SUMMARY_BEGIN_MARKER': '<!-- PELICAN_BEGIN_SUMMARY -->',
+                   'SUMMARY_END_MARKER': '<!-- PELICAN_END_SUMMARY -->',
                    'PLUGINS': [],
                    'TEMPLATE_PAGES': {},
                    'IGNORE_FILES': []
