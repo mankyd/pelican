@@ -57,37 +57,6 @@ class TestPage(unittest.TestCase):
         page = Page(**self.page_kwargs)
         self.assertEqual(page.summary, TEST_SUMMARY)
 
-    def test_end_summary(self):
-        page_kwargs = self._copy_page_kwargs()
-        del page_kwargs['metadata']['summary']
-        page_kwargs['content'] = (
-            TEST_SUMMARY + '<!-- PELICAN_END_SUMMARY -->' + TEST_CONTENT)
-        page = Page(**page_kwargs)
-        # test both the summary and the marker removal
-        self.assertEqual(page.summary, TEST_SUMMARY)
-        self.assertEqual(page.content, TEST_SUMMARY + TEST_CONTENT)
-
-    def test_begin_summary(self):
-        page_kwargs = self._copy_page_kwargs()
-        del page_kwargs['metadata']['summary']
-        page_kwargs['content'] = (
-            'FOOBAR<!-- PELICAN_BEGIN_SUMMARY -->' + TEST_CONTENT)
-        page = Page(**page_kwargs)
-        # test both the summary and the marker removal
-        self.assertEqual(page.summary, TEST_CONTENT)
-        self.assertEqual(page.content, 'FOOBAR' + TEST_CONTENT)
-
-    def test_begin_end_summary(self):
-        page_kwargs = self._copy_page_kwargs()
-        del page_kwargs['metadata']['summary']
-        page_kwargs['content'] = (
-                'FOOBAR<!-- PELICAN_BEGIN_SUMMARY -->' + TEST_SUMMARY + 
-                '<!-- PELICAN_END_SUMMARY -->' + TEST_CONTENT)
-        page = Page(**page_kwargs)
-        # test both the summary and the marker removal
-        self.assertEqual(page.summary, TEST_SUMMARY)
-        self.assertEqual(page.content, 'FOOBAR' + TEST_SUMMARY + TEST_CONTENT)
-
     def test_summary_max_length(self):
         """If a :SUMMARY_MAX_LENGTH: is set, and there is no other summary, generated summary
            should not exceed the given length."""

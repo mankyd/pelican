@@ -194,15 +194,7 @@ class Page(object):
 
     @property
     def content(self):
-        """ A normalized version of the content that removes summary markers"""
-        content = self.get_content(self._context['localsiteurl'])
-        if self.settings['SUMMARY_BEGIN_MARKER']:
-            content = content.replace(
-                self.settings['SUMMARY_BEGIN_MARKER'], '', 1)
-        if self.settings['SUMMARY_END_MARKER']:
-            content = content.replace(
-                self.settings['SUMMARY_END_MARKER'], '', 1)
-        return content
+        return self.get_content(self._context['localsiteurl'])
 
     def _get_summary(self):
         """Returns the summary of an article, based on the summary metadata
@@ -210,24 +202,6 @@ class Page(object):
         if hasattr(self, '_summary'):
             return self._summary
 
-        # first see if the summary markers are present
-        begin_summary = -1
-        end_summary = -1
-        content = self.get_content(self._context['localsiteurl'])
-        if self.settings['SUMMARY_BEGIN_MARKER']:
-            begin_summary = content.find(self.settings['SUMMARY_BEGIN_MARKER'])
-        if self.settings['SUMMARY_END_MARKER']:
-            end_summary = content.find(self.settings['SUMMARY_END_MARKER'])
-        if begin_summary != -1 or end_summary != -1:
-            # the beginning position has to take into account the length
-            # of the marker
-            begin_summary = (begin_summary + 
-                             len(self.settings['SUMMARY_BEGIN_MARKER'])
-                             if begin_summary != -1 else 0)
-            end_summary = end_summary if end_summary != -1 else None
-            return content[begin_summary:end_summary]
-
-        # if no summary markers, we go by max length
         if self.settings['SUMMARY_MAX_LENGTH']:
             return truncate_html_words(self.content,
                     self.settings['SUMMARY_MAX_LENGTH'])
